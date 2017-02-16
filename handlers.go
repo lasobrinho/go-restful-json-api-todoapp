@@ -18,9 +18,17 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
+	todos := GetAllTodos()
+
 	if err := json.NewEncoder(w).Encode(todos); err != nil {
 		panic(err)
 	}
+}
+
+func TodoCount(w http.ResponseWriter, r *http.Request) {
+	todoCount := GetTodoCount()
+
+	fmt.Fprintln(w, "Todo count: ", todoCount)
 }
 
 func TodoShow(w http.ResponseWriter, r *http.Request) {
@@ -46,10 +54,10 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	t := RepoCreateTodo(todo)
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusCreated)
-	if err := json.NewEncoder(w).Encode(t); err != nil {
-		panic(err)
-	}
+	//t := RepoCreateTodo(todo)
+	//w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	//w.WriteHeader(http.StatusCreated)
+	//if err := json.NewEncoder(w).Encode(t); err != nil {
+	//	panic(err)
+	//}
 }

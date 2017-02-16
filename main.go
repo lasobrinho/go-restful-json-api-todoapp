@@ -8,5 +8,7 @@ import (
 func main() {
 	router := NewRouter()
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	NewDBConnection()
+
+	log.Fatal(http.ListenAndServe(":8080", router))	
 }

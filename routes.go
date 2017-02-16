@@ -35,4 +35,10 @@ var routes = Routes{
 		"/todos",
 		TodoCreate,
 	},
+	Route{
+		"TodoCount",
+		"GET",
+		"/todoscount",
+		TodoCount,
+	},
 }
