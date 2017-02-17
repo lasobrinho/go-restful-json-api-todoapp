@@ -6,7 +6,6 @@ import (
 )
 
 
-
 func GetAllTodos() Todos {
 	todoCollection := dbSession.DB("todo-go").C("todo")
 	
@@ -15,7 +14,7 @@ func GetAllTodos() Todos {
 	err := todoCollection.Find(bson.M{}).All(&todos)
 	
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	return todos
@@ -32,9 +31,27 @@ func GetTodoCount() int {
 	return count
 }
 
-//func CreateTodo(t Todo) Todo {
+func GetTodoById(todoId string) (Todo, error) {
+	todoCollection := dbSession.DB("todo-go").C("todo")
 
-//}
+	var todo Todo
+
+	err := todoCollection.Find(bson.M{"_id": bson.ObjectIdHex(todoId)}).One(&todo)
+
+	if err != nil {
+		return todo, err
+	}
+
+	return todo, nil
+}
+
+func CreateTodo(todo Todo) error {
+	todoCollection := dbSession.DB("todo-go").C("todo")
+
+	err := todoCollection.Insert(todo)
+
+	return err
+}
 
 //func DestroyTodo(id int) error {
 	
